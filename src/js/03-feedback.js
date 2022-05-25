@@ -8,7 +8,9 @@ const refs = {
   email: document.querySelector('input'),
   textarea: document.querySelector('textarea'),
 };
+savedTextArea();
 
+refs.form.addEventListener('submit', onFormSubmit);
 refs.form.addEventListener(
   'input',
   throttle(evt => {
@@ -16,9 +18,13 @@ refs.form.addEventListener(
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dataStorage));
   }, 500),
 );
-refs.form.addEventListener('submit', onFormSubmit);
+// refs.textarea.addEventListener('input', throttle(onMessageInput, 500));
 
-savedTextArea();
+// function onMessageInput(evt) {
+//   const message = evt.target.value;
+//   //   localStorage.setItem(STORAGE_KEY, message);
+//   //   console.log(message);
+// }
 
 function onFormSubmit(evt) {
   evt.preventDefault();
@@ -28,12 +34,10 @@ function onFormSubmit(evt) {
 }
 
 function savedTextArea() {
-  const savedMessage = localStorage.getItem(STORAGE_KEY);
-  //   console.log(savedMessage);
-  const parsedMessage = JSON.parse(savedMessage);
-  if (parsedMessage) {
-    refs.email.value = parsedMessage.email;
-    refs.textarea.value = parsedMessage.message;
-    // console.log(parsedMessage);
+  const savedMessage = JSON.parse(localStorage.getItem(STORAGE_KEY));
+  //   const parsedMessage = JSON.parse(savedMessage);
+  if (savedMessage) {
+    refs.email.value = savedMessage.email;
+    refs.textarea.value = savedMessage.message;
   }
 }
