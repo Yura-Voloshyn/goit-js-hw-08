@@ -24,7 +24,7 @@ function onInputExist(evt) {
 // refs.textarea.addEventListener('input', throttle(onMessageInput, 500));
 function onFormSubmit(evt) {
   evt.preventDefault();
-  console.log(dataStorage);
+  console.log(JSON.parse(localStorage.getItem(STORAGE_KEY)));
   evt.currentTarget.reset();
   localStorage.removeItem(STORAGE_KEY);
 }
